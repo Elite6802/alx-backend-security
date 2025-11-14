@@ -139,3 +139,14 @@ CACHES = {
 # Celery configuration
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+import environ
+env = environ.Env()
+environ.Env.read_env()
+
+DEBUG = env.bool("DEBUG", default=False)
+SECRET_KEY = env("SECRET_KEY")
+DATABASES = {
+    'default': env.db()
+}
+CELERY_BROKER_URL = env("CELERY_BROKER_URL")
